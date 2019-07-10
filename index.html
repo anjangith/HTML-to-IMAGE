@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Convert Div to image</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="html2canvas.js"></script>
+<script src="html2canvas.min.js"></script>
+
+</head>
+<body>
+<div id="mainDiv">
+<h1>Developergang.com</h1>
+<p>Welcome to Developergang.com</p>
+</div>
+
+<button type="button" id="buttonSave">DOWNLOAD</button>
+
+
+<script>
+document.getElementById("buttonSave").addEventListener("click", function() {
+
+    html2canvas(document.querySelector('#mainDiv')).then(function(canvas) {
+
+        console.log(canvas);
+        saveAs(canvas.toDataURL(), 'file-name.png');
+    });
+});
+
+
+function saveAs(uri, filename) {
+
+    var link = document.createElement('a');
+
+    if (typeof link.download === 'string') {
+
+        link.href = uri;
+        link.download = filename;
+
+        //Firefox requires the link to be in the body
+        document.body.appendChild(link);
+
+        //simulate click
+        link.click();
+
+        //remove the link when done
+        document.body.removeChild(link);
+
+    } else {
+
+        window.open(uri);
+
+    }
+}
+</script>
+</body>
+</html>
